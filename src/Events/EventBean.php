@@ -32,7 +32,7 @@ class EventBean
      */
     private $meta = [
         'result' => 200,
-        'type'   => 'generic'
+        'type'   => 'Generic'
     ];
 
     /**
@@ -203,7 +203,6 @@ class EventBean
                     'remote_address' => $_SERVER['REMOTE_ADDR'] ?? '',
                     'encrypted'      => isset($_SERVER['HTTPS'])
                 ],
-                'response' => $this->contexts['response'],
                 'url'          => [
                     'protocol' => $http_or_https,
                     'hostname' => $_SERVER['SERVER_NAME'] ?? '',
@@ -219,6 +218,11 @@ class EventBean
                 'env' => $this->getEnv(),
             ]
         ];
+
+        // Add Response
+        if (empty($this->contexts['response']) === false) {
+            $context['response'] = $this->contexts['response'];
+        }
 
         // Add Cookies Map
         if (empty($_COOKIE) === false) {
